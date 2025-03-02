@@ -1,5 +1,9 @@
 # Tauri GitHub Action
 
+因为github action 不支持将中文文件夹上传到github release, 所以需要将中文文件重命名为英文文件, 然后将英文文件上传到github release, 这样就可以了.
+
+This action is a wrapper around [Tauri](URL_ADDRESSThis action is a wrapper around [Tauri](https://tauri.studio/)'s CLI. It builds your Tauri app as a native binary for macOS, Linux and Windows and optionally uploads it to a GitHub Release.)
+
 This GitHub Action builds your Tauri application as a native binary for macOS, Linux and Windows and optionally upload it to a GitHub Release.
 
 If your project doesn't include a Tauri project, the action can initialize it for you, so if you don't need to use Tauri's API, you can just ship native apps through this Action without making changes to your web app.
