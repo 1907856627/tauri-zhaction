@@ -1,5 +1,5 @@
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, renameSync } from 'node:fs';
+import { join, basename } from 'node:path';
 
 import { initProject } from './init-project';
 import { getRunner } from './runner';
@@ -19,6 +19,7 @@ export async function buildProject(
   buildOpts: BuildOptions,
   initOpts: InitOptions,
   retryAttempts: number,
+  renameArtifacts: string,
 ): Promise<Artifact[]> {
   const runner = await getRunner(root, buildOpts.tauriScript);
 
@@ -324,6 +325,30 @@ export async function buildProject(
       );
     }
   }
+
+  // try to rename the artifacts
+  artifacts = artifacts.map((artifact) => {
+    if (
+      renameArtifacts &&
+      /[\u4e00-\u9fa5]/.test(artifact.path) &&
+      existsSync(artifact.path)
+    ) {
+      // replace the Chinese part with renameArtifacts and modify the original file name
+      const newPath = artifact.path.replace(
+        /[\u4e00-\u9fa5]+/g,
+        renameArtifacts,
+      );
+      renameSync(artifact.path, newPath);
+      console.log(
+        'Renamed artifact:',
+        basename(artifact.path),
+        '->',
+        basename(newPath),
+      );
+      artifact.path = newPath;
+    }
+    return artifact;
+  });
 
   console.log(
     `Looking for artifacts in:\n${artifacts.map((a) => a.path).join('\n')}`,

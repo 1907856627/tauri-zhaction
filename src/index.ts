@@ -33,6 +33,7 @@ async function run(): Promise<void> {
     const tauriScript = core.getInput('tauriScript');
     const args = stringArgv(core.getInput('args'));
     const bundleIdentifier = core.getInput('bundleIdentifier');
+    const renameArtifacts = core.getInput('renameArtifacts');
 
     let tagName = core.getInput('tagName').replace('refs/tags/', '');
     let releaseId = Number(core.getInput('releaseId'));
@@ -84,6 +85,7 @@ async function run(): Promise<void> {
           buildOptions,
           initOptions,
           retryAttempts,
+          renameArtifacts,
         )),
       );
     }
@@ -95,6 +97,7 @@ async function run(): Promise<void> {
           buildOptions,
           initOptions,
           retryAttempts,
+          renameArtifacts,
         )),
       );
     }
