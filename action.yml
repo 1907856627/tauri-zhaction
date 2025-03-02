@@ -1,7 +1,7 @@
 name: 'tauri-zhaction'
 description: 'Build tauri binaries for MacOS, Windows and Linux, and rename the artifacts'
-icon: 'download-cloud'
-color: 'blue'
+icon: 'arrow-up-circle'
+color: 'green'
 author: 'Lucas Nogueira <lucas@tauri.studio>'
 inputs:
   releaseId:
